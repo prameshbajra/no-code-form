@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { waitForAsync } from '@angular/core/testing';
 
 @Component({
     selector: 'app-form',
@@ -12,12 +15,35 @@ export class FormComponent implements OnInit {
     public shouldPasswordErrorBeShown: boolean = false;
     public shouldConfirmPasswordErrorBeShown: boolean = false;
     public passwordFieldValue: string = "";
+    public profileForm: any;
+    @ViewChild('title', { static: false }) title: Input | undefined;
+    @ViewChild('firstName', { static: false }) firstName: Input | undefined;
 
-    constructor() { }
+
+    constructor(private fb: FormBuilder) { }
 
     ngOnInit(): void {
+        this.profileForm = this.fb.group({
+            title: [''],
+            firstName: [''],
+            lastName: [''],
+            email: [''],
+            userType: [''],
+            yearPassedOut: [''],
+            password: [''],
+            confirmPassword: ['']
+        });
     }
 
+
+
+    save(): any {
+        this.title = this.profileForm.get('title').value;
+        // this.userType=this.profileForm.get('userType').value;
+        console.log(this.profileForm.value);
+        let userString: any;
+        userString = JSON.stringify(this.profileForm.value);
+    }
     onPersonTypeChange(selectedValueEvent: any): void {
         try {
             const selectedValue = selectedValueEvent.target.value;
