@@ -21,7 +21,7 @@ export class FormComponent implements OnInit {
     onPersonTypeChange(selectedValueEvent: any): void {
         try {
             const selectedValue = selectedValueEvent.target.value;
-            if (selectedValue === "alumini") {
+            if (selectedValue === "alumni") {
                 setTimeout(() => {
                     this.shouldYearPassedOutBeShown = true;
                 }, 100);
